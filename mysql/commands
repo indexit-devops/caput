@@ -1,0 +1,44 @@
+
+
+DB :
+
+> show databases;
+
+Select a database :
+
+> use dbname;
+
+Show tables in DB:
+
+> show tables;
+
+See a content inside a table:
+
+> select * from table_name;
+
+TO check the colums of a table
+
+> desc table_name;
+ 
+ -----------
+
+Create database :
+
+> create database db_name;
+> drop database db_name;
+
+
+Create table:
+
+> CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20), -> species VARCHAR(20), sex CHAR(1), birth DATE, death DATE); 
+
+Create User:
+
+> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';
+
+
+
+
+
+
+
