@@ -1,0 +1,42 @@
+1) Download and install vagrant , gitbash ,  notepad++
+2) Create service account in google
+3) Crete a Folder "F:/Vagrant-Google/"
+4) generte ssh key
+	Go to "F:/Vagrant-Google/"
+	Right Click "Git Bash here"
+	$ ssh-keygen -f vagrant 
+	
+5) crate a folder "F:/Vagrant-Google/demo"
+6) go to demo directory
+	"Git bash here"
+	$ vagrant init
+	There is one Vagrantfile gets created, Right click on it and open with Notepad++
+	
+	And paste the following content.
+	
+	-----------------------------
+	Vagrant.configure("2") do |config|
+  config.vm.box = "google/gce"
+  config.vm.provision "shell", path: "https://raw.githubusercontent.com/indexit-devops/caput/master/shell_scripts/install_httpd.sh"
+
+  config.vm.provider :google do |google, override|
+    google.google_project_id = "PROJECT ID"
+    google.google_client_email = "EMMAIL"
+    google.google_json_key_location = "JSON FILE LOC"
+	google.name = "demo"
+	google.image = "centos-7-v20170719"
+
+    override.ssh.username = "vagrant"
+    override.ssh.private_key_path = "F:/Vagrant-Google/vagrant"
+
+  end
+
+end
+
+	-----------------------------
+	
+	$ vagrant up
+	$ vagrant ssh
+	
+	
+	
