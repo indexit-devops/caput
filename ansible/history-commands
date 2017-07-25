@@ -1,0 +1,67 @@
+    1  yum install ansible -y
+    7  yum install ansible -y
+    8  ansible --help
+   19  ansible --help
+   20  ansible --version
+   21  vim /etc/ansible/ansible.cfg
+   23  ansible all --list-hosts
+   24  ansible -i hosts/india/dev all --list-hosts
+   25  vim /etc/ansible/hosts 
+   27  ansible -i inventory --list-hposts
+   28  ansible -i inventory --list-hosts
+   29  ansible -i inventory all --list-hosts
+   31  ansible -i inventory dev --list-hosts
+   32  ansible -i inventory qa --list-hosts
+   33  ansible -i inventory prd --list-hosts
+   35  ansible -i inventory indiaapp --list-hosts
+   37  ansible -i inventory indiaapp --list-hosts
+   41  ansible -i inventory all --list-hosts
+   42  ansible -i inventory all -m ping
+   47  ansible --help
+   48  ansible -i inventory all --ssh-extra-args="-o StrictHostKeyChecking no" -m ping
+   49  ansible--version
+   50  ansible --version
+   51  cp /etc/ansible/ansible.cfg .
+   52  ansible --version
+   53  mv ansible.cfg /root/.ansible.cfg
+   54  ansible --version
+   56  ansible --version
+   57  mv /root/.ansible.cfg /tmp/ansible.cfg
+   59  ansible --version
+   60  export ANSIBLE_CONFIG=/tmp/ansible.cfg 
+   61  ansible --version
+   63  cp -r /etc/ansible .
+   65  cd ansible/
+   68  ansible -i inventory all --ssh-extra-args="-o StrictHostKeyChecking no" -m ping
+   69  ansible -i ../inventory all --ssh-extra-args="-o StrictHostKeyChecking no" -m ping
+   75  vim ansible.cfg 
+   76  ansible all --list-hosts
+   78  vim ansible.cfg 
+   79  ansible --version
+   81  ansible all --list-hosts
+   82  vim ansible.cfg 
+   84  ansible all --list-hosts
+   86  ansible all -m ping
+   90  ansible --help
+   91  ansible all -u admin --private-key=admin.key -m ping
+   93  ansible all -u admin --private-key=admin.key -m ping
+   95  ansible all -u admin --private-key=admin.key -m ping
+   97  vim ansible.cfg 
+  103  ansible-playbook --help
+  104  ansible-playbook 01-ping.yml 
+  107  ansible-playbook 01-ping.yml 
+  108  ansible-playbook playbooks/01-ping.yml 
+  109  ansible-playbook --private-key=admin.key playbooks/01-ping.yml 
+  110  vim ansible.cfg 
+  111  ansible-playbook playbooks/01-ping.yml 
+  115  ansible stack -m ping
+  116  ansible stack -u admin -m ping
+  117  vim ansible.cfg 
+  118  ansible stack -m ping
+  122  ansible-playbook playbooks/02-install-pack.yml 
+  124  vim ansible.cfg 
+  130  ansible-playbook playbooks/02-install-pack.yml 
+  132  ansible-playbook playbooks/02-install-pack.yml 
+  139  cp ../ansible/ .
+  140  cp -r ../ansible/ .
+  141  history |grep ansible >ansible/history-commands
