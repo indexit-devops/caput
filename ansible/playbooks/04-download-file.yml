@@ -1,0 +1,14 @@
+- hosts: stack
+  tasks:
+    - name: Download web project
+      get_url:
+        url: https://github.com/indexit-devops/caput/archive/master.zip
+        dest: /opt/annus.zip
+      become: yes 
+
+    - name: Unzip annus file
+      unarchive:
+        src: /opt/annus.zip
+        dest: /opt
+        remote_src: True
+      become: yes

@@ -1,0 +1,15 @@
+- hosts: stack
+  become: yes
+  tasks:
+    - name: Install web server
+      yum:
+        name: httpd
+        state: installed
+
+    - name: Start Web Server
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    

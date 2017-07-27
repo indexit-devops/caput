@@ -1,0 +1,6 @@
+- hosts: stack
+  vars:
+    Course_name: "AWS"
+  tasks:
+    - debug: 
+        msg: "Welcome to {{Course_name }}"

@@ -1,0 +1,4 @@
+- hosts: stack
+  tasks:
+    - debug:
+        msg: "Hello Welcome to DevOps"
