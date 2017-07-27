@@ -1,0 +1,7 @@
+- hosts: stack
+  tasks:
+    - debug:
+        msg: "Welcome to {{item}}"
+      with_items:
+        - AWS
+        - DEVOPS

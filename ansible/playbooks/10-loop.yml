@@ -1,0 +1,11 @@
+- hosts: stack
+  become: yes
+  tasks: 
+    - name: Install packages
+      yum:
+        name: "{{item}}"
+        state: installed
+      with_items:
+        - bzip2
+        - unzip
+        - gzip

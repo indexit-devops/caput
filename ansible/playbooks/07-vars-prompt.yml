@@ -1,0 +1,9 @@
+- hosts: stack
+  vars_prompt:
+     - name: COURSE
+       prompt: Enter Course Name
+       private: no
+
+  tasks:
+     - debug:
+        msg: "Welcome to {{COURSE}}"

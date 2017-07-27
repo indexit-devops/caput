@@ -1,0 +1,7 @@
+- hosts: stack
+  vars:
+     COURSE: DEVOPS
+  tasks:
+    - debug:
+        msg: "Welcome to AWS"
+      when: COURSE == "AWS"

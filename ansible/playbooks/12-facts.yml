@@ -1,0 +1,5 @@
+- hosts: stack
+  gather_facts: no
+  tasks:
+    - debug:
+        msg: "ANSIBLE_OS_FAMILY = {{ansible_os_family}}"

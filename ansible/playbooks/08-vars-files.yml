@@ -1,0 +1,6 @@
+- hosts: stack
+  vars_files:
+     - vars01.yml
+  tasks: 
+    - debug:
+        msg: "Student = {{STUDENT_NAME}} , Course = {{COURSE}}"
