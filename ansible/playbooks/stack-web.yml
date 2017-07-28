@@ -1,0 +1,60 @@
+- hosts: stack
+  become: yes
+  gather_facts: no
+  vars:
+        packs: [httpd,httpd-devel,gcc]
+        URL: "http://redrockdigimark.com/apachemirror/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.42-src.tar.gz"
+        TOM_DOWN_LOC: /opt
+  tasks:
+    - yum:
+        name: "{{item}}"
+        state: installed
+      with_items:
+        - "{{packs}}"
+
+    - unarchive:
+        src: "{{URL}}"
+        dest: "{{TOM_DOWN_LOC}}"
+        remote_src: true 
+
+    - shell: "ls -d {{TOM_DOWN_LOC}}/tomcat-connectors*"
+      register: out
+
+    - set_fact:
+        TOMCAT_CON_LOC: "{{out.stdout}}/native"
+
+    - shell: "./configure --with-apxs=/bin/apxs && make && make install" 
+      args:
+        chdir: "{{TOMCAT_CON_LOC}}"
+
+    - copy:
+        src: "files/mod_jk.conf"
+        dest: "/etc/httpd/conf.d/mod_jk.conf"
+
+    - copy:
+        src: "files/workers.properties"
+        dest: /etc/httpd/conf.d/workers.properties
+
+    - service:
+        name: httpd
+        state: restarted
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,9 @@
+- hosts: stack
+  gather_facts: no
+  tasks: 
+        - shell: ls
+          args:
+                chdir: /boot
+          register: out
+        - debug:
+                msg: "{{out.stdout}}"

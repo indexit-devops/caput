@@ -1,0 +1,13 @@
+- hosts: stack
+  gather_facts: no
+  tasks:
+        - shell: ls /opt
+          register: out
+
+        - debug:
+                msg: "{{out.stdout}}"
+        - set_fact:
+                TOMCAT_LOC: "/opt/{{out.stdout}}"
+
+        - debug:
+                msg: "Tomcat location = {{TOMCAT_LOC}}"

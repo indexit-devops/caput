@@ -1,0 +1,9 @@
+- hosts: stack
+  gather_facts: no
+  tasks: 
+        - copy:
+                src: "{{item.src}}"
+                dest: "{{item.dest}}"
+          with_items:
+                - {src: files/mod_jk.conf , dest: /tmp/mod_jk.conf }
+                - {src: files/workers.properties, dest: /tmp/workers.properties}
