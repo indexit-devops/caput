@@ -1,0 +1,36 @@
+- hosts: stack
+  become: yes
+  vars:
+    packs: [mariadb,mariadb-server,python2-pip,mariadb-devel,gcc,python-devel]
+    SQL_FILE: "files/studentapp.sql"
+  tasks:
+    - name: Install packages
+      yum:
+        name: "{{item}}"
+        state: installed
+      with_items: 
+        - "{{packs}}"
+
+    - name: Install the Python MySQLB module
+      pip: name=MySQL-python
+
+    - name: Start Service
+      service:
+        name: mariadb
+        state: started
+
+    - name: copy sql file
+      copy:
+        src: "{{SQL_FILE}}"
+        dest: "/tmp"
+
+    - name: Create database 
+      mysql_db:
+        name: studentapp
+        state: present
+
+    - name: Create and import database and its tables
+      mysql_db:
+        state: import
+        name: all
+        target: "/tmp/studentapp.sql"

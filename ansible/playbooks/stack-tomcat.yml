@@ -1,5 +1,6 @@
 ---
 - hosts: stack
+  gather_facts: no
   become: yes
   vars:
     URL: "http://redrockdigimark.com/apachemirror/tomcat/tomcat-9/v9.0.0.M22/bin/apache-tomcat-9.0.0.M22.tar.gz"
@@ -16,20 +17,26 @@
     CONTEXT_CONTENT: '<Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource" maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="student" password="student@1" driverClassName="com.mysql.jdbc.Driver"  url="jdbc:mysql://localhost:3306/studentapp"/>'
 
   tasks:
-   # - name: Checking whether the tomcat is already exists or not
-   #   shell: "ls -ld {{ TOMCAT_DIR }}"
-   #   register: out
+    - name: Install Java
+      yum:
+        name: java
+        state: installed
+
+    - name: Checking whether the tomcat is already exists or not
+      shell: "ls -ld {{ TOMCAT_DIR }}"
+      register: out
+      ignore_errors: yes
 
     - name: Download tomcat tar file and extract 
       unarchive:
         src: "{{URL}}"
         dest: "{{TOMCAT_INST_DIR}}"
         remote_src: true
-     # when: out.rc != 0
+      when: out.rc != 0
 
     - name: Rename Tomcat Directory
       shell: "mv {{TOMCAT_EXTRACT_DIR}} {{TOMCAT_DIR}}"
-    #  when: out.rc != 0
+      when: out.rc != 0
 
     - name: Remove old war files
       shell: "rm -rf {{TOMCAT_DIR}}/webapps/*"
