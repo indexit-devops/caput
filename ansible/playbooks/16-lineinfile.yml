@@ -1,0 +1,10 @@
+- hosts: stack
+  gather_facts: no
+  vars:
+        CON: '<Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource" maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="student" password="student@1" driverClassName="com.mysql.jdbc.Driver"  url="jdbc:mysql://localhost:3306/studentapp"/>'
+
+  tasks:
+        - lineinfile:
+                insertbefore: "</Context>"
+                line: "{{CON}}"
+                path: /home/admin/apache-tomcat-9.0.0.M22/conf/context.xml

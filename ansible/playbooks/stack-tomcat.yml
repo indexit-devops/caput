@@ -1,0 +1,57 @@
+---
+- hosts: stack
+  become: yes
+  vars:
+    URL: "http://redrockdigimark.com/apachemirror/tomcat/tomcat-9/v9.0.0.M22/bin/apache-tomcat-9.0.0.M22.tar.gz"
+    TOMCAT_INST_DIR: "/opt"
+    TOMCAT_TAR_FILE: "{{TOMCAT_INST_DIR}}/apache-tomcat-9.0.0.M22.tar.gz"
+    TOMCAT_EXTRACT_DIR: "{{TOMCAT_INST_DIR}}/apache-tomcat-9.0.0.M22"
+    TOMCAT_DIR: "{{TOMCAT_INST_DIR}}/tomcat"
+    TOMCAT_STARTUP: "{{TOMCAT_DIR}}/bin/startup.sh"
+
+    APP_WAR_URL: "https://github.com/carreerit/cogito/raw/master/appstack/student.war"
+    APP_MYSQL_LIB_URL: "https://github.com/carreerit/cogito/raw/master/appstack/mysql-connector-java-5.1.40.jar"
+
+    CONTEXT_XML_FILE: "{{TOMCAT_DIR}}/conf/context.xml"
+    CONTEXT_CONTENT: '<Resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource" maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="student" password="student@1" driverClassName="com.mysql.jdbc.Driver"  url="jdbc:mysql://localhost:3306/studentapp"/>'
+
+  tasks:
+   # - name: Checking whether the tomcat is already exists or not
+   #   shell: "ls -ld {{ TOMCAT_DIR }}"
+   #   register: out
+
+    - name: Download tomcat tar file and extract 
+      unarchive:
+        src: "{{URL}}"
+        dest: "{{TOMCAT_INST_DIR}}"
+        remote_src: true
+     # when: out.rc != 0
+
+    - name: Rename Tomcat Directory
+      shell: "mv {{TOMCAT_EXTRACT_DIR}} {{TOMCAT_DIR}}"
+    #  when: out.rc != 0
+
+    - name: Remove old war files
+      shell: "rm -rf {{TOMCAT_DIR}}/webapps/*"
+  
+    - name: Download the student application
+      get_url:
+          url: "{{ APP_WAR_URL }}"
+          dest: "{{TOMCAT_DIR}}/webapps"
+    
+    - name: Download MySQL Lib file
+      get_url:
+          url: "{{ APP_MYSQL_LIB_URL }}"
+          dest: "{{TOMCAT_DIR}}/lib"
+
+    - name: Update the context.xml file 
+      lineinfile:
+        insertbefore: "</Context>"
+        line: "{{ CONTEXT_CONTENT }}"
+        path: "{{ CONTEXT_XML_FILE }}"
+
+    - name: Start the tomcat service
+      shell: "{{TOMCAT_STARTUP}}"
+
+
+
