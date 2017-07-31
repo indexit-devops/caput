@@ -1,0 +1,16 @@
+- hosts: stack
+  become: yes
+  vars:
+    PORTNO: 800
+  tasks:
+    - name: Update httpd.conf file
+      template:
+        src: files/httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+      notify: Restart httpd Server
+
+  handlers:
+    - name: Restart httpd Server
+      service:
+        name: httpd
+        state: restarted

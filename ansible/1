@@ -1,0 +1,4 @@
+- hosts: stack
+  become: yes
+  roles:
+    - sample

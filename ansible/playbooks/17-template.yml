@@ -1,0 +1,8 @@
+- hosts: all
+  vars:
+    MYSQL: 10.128.0.100
+  tasks:
+    - name: Tempaplating /tmp/abx.txt file 
+      template:
+        src: files/abc.txt.j2
+        dest: /tmp/abc.txt
