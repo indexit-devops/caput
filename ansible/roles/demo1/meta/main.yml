@@ -1,0 +1,2 @@
+dependencies:
+  - {role: demo2, URL: google.com}

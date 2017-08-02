@@ -2,3 +2,7 @@
 
 [stack]
 10.128.0.8 host_port=80 COURSE=SYSOPS INVNAME=STACK01
+
+[new]
+10.128.0.10
+

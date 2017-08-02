@@ -1,0 +1,14 @@
+- name: Print pack list
+  yum:
+    name: "{{item}}"
+    state: installed
+  with_items:
+        - "{{packlist}}"
+
+- name: Start Web Server
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+

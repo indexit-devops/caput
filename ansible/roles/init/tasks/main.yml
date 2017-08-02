@@ -1,0 +1,40 @@
+- name: Check selinux enabled or not
+  shell: sestatus | grep enabled
+  register: out
+  ignore_errors: yes
+
+
+- name: Disable selinux
+  replace:
+    path: /etc/selinux/config
+    regexp: '^SELINUX=.*$'
+    replace: 'SELINUX=disabled'
+
+- name: Diable firewall
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: Reboot the system
+  shell: shutdown -r
+  when: out.rc == 0
+  async: 0
+  poll: 0
+
+- name: Wait for server to come
+  local_action: wait_for host={{ ansible_ssh_host }} state=started port=22 delay=30 timeout=90 connect_timeout=15
+
+- name: change sshd parameters
+  debug:
+    msg: 'Doing ssh chnages'
+
+
+
+
+
+
+
+
+
+

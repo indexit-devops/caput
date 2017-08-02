@@ -1,0 +1,4 @@
+- hosts: new
+  become: yes
+  roles:
+        - webserver
