@@ -1,0 +1,72 @@
+    1  curl -s https://raw.githubusercontent.com/indexit-devops/caput/master/vminit.sh | bash
+    2  exit
+    3  id admin
+    4  id sample
+    5  usermod -aG google-sudoers sample
+    6  su - sample
+    7  exit
+    8  init 0
+    9  exit
+   10  ls
+   11  unzip /home/rwnjun17/chef-starter\ \(4\).zip 
+   12  ls
+   13  cd chef-repo/
+   14  ls
+   15  ls -a
+   16  cd .chef/
+   17  ls
+   18  cat cls -a
+   19  ls -a
+   20  cat knife.rb 
+   21  cd ..
+   22  knife node list
+   23  knife ssl fetch
+   24  knife node list
+   25  knife bootstrap --help
+   26  knie bootstrap admin@10.128.0.3
+   27  knife bootstrap admin@10.128.0.3
+   28  knife bootstrap admin@10.128.0.3 -N app1
+   29  vim admin.pem
+   30  chmod 600 admin.pem 
+   31  knife bootstrap -i admin.pem admin@10.128.0.3 -N app1
+   32  knife bootstrap -i admin.pem admin@10.128.0.3 -N app1 -y
+   33  knife bootstrap -i admin.pem admin@10.128.0.3 -N app1 -y --sudo
+   34  chef-client 
+   35  ls
+   36  cd oo
+   37  cd cookbooks/
+   38  ls
+   39  cd starter/
+   40  ls
+   41  cd ..
+   42  knife cookbook --help
+   43  knife cookbook create
+   44  chef generate cookbook sample
+   45  ls
+   46  cd sample/
+   47  ls
+   48  cd recipes/
+   49  ls
+   50  cat default.rb 
+   51  vim default.rb 
+   52  cd ..
+   53  ls -a
+   54  knife cookbook
+   55  knife cookbook upload sample
+   56  vim cookbooks/sample/recipes/default.rb 
+   57  knife cookbook upload sample
+   58  vim cookbooks/sample/recipes/default.rb 
+   59  knife cookbook upload sample
+   60  vim cookbooks/sample/recipes/default.rb 
+   61  knife cookbook upload sample
+   62  vim cookbooks/sample/recipes/default.rb 
+   63  knife cookbook upload sample
+   64  cd 
+   65  \
+   66  curl https://raw.githubusercontent.com/indexit-devops/gitkeys/master/setup.sh | bash
+   67  git clone git@github.com:indexit-devops/caput.git
+   68  gitset cit
+   69  cd caput/
+   70  cp ../chef-repo .
+   71  cp ../chef-repo . -r
+   72  history >history
