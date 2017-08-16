@@ -1,0 +1,33 @@
+scp -o StrictHostKeyChecking=no -i /var/lib/jenkins/pem/admin.pem /var/lib/jenkins/workspace/STUDENT-MVN-COMPILE/target/*.war admin@prdapp01:/home/admin/student.war
+ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/pem/admin.pem  admin@prdapp01 'sudo /root/deploy.sh'
+
+
+
+
+
+cd /var/lib/jenkins/ansible
+ansible-playbook -i inventory --private-key=admin.pem -u admin deploy.yml
+
+
+- name: Remove existing var files
+  file:
+    state: absent
+    path: "{{TOM_LOC}}/webapps/{{item}}" 
+  with_items:
+    - student
+    - student.war
+
+- name: List war files on server
+  shell: "ls /var/lib/jenkins/workspace/STUDENT-MVN-COMPILE/target/*.war"
+  register: out
+  delegate_to: 127.0.0.1
+  become: no
+   
+- name: Get war file loca
+  set_fact:
+    WAR_FILE: "{{out.stdout}}"
+
+- name: Copy War file
+  copy:
+    src: "{{WAR_FILE}}"
+    dest: "{{TOM_LOC}}/webapps/student.war"
